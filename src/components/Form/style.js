@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import formBg from '../../images/slanted-gradient.svg'
 
 export default makeStyles((theme) => ({
   root: {
@@ -10,9 +11,10 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   form: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    backgroundColor: "#BE4CFF",
+  backgroundImage: {formBg},
+  backgroundAttachment: 'fixed',
+backgroundSize: 'cover',
   },
   fileInput: {
     width: '97%',

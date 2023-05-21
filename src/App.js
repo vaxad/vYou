@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { Component, useEffect }  from 'react';
+import React, { Component, useEffect, useState }  from 'react';
 import './App.css';
 import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
 import memories from './images/memories.png';
@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 function App() {
   const classes=useStyles();
   const dispatch=useDispatch();
+  const [id,setId]=useState(null);
 
   useEffect(()=>{
     dispatch(getPosts());
@@ -21,8 +22,8 @@ function App() {
   return (
     <>
     <Navbar></Navbar>
-    <Form></Form>
-    <Posts></Posts>
+    <Form id={id} setId={setId}></Form>
+    <Posts setId={setId}></Posts>
     </>
   );
 }

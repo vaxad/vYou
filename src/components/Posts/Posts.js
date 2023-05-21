@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Spinner from "../Spinner";
 
 let ctr=0;
-const Posts = () => {
+const Posts = (props) => {
   const posts = useSelector((state) => state.posts);
   console.log(posts);
   return !posts.length ? (
@@ -24,7 +24,7 @@ const Posts = () => {
           return (
             
             <div className="col-md-4 my-3" key={element._id}>
-              <Post creator={element.creator} title={element.title} message={element.message} tags={element.tags} createdAt={element.date} selectedFile={element.selectedFile}/>
+              <Post setId={props.setId} id={element._id} creator={element.creator} title={element.title} message={element.message} tags={element.tags} createdAt={element.date} selectedFile={element.selectedFile}/>
             </div>
           );
         })}

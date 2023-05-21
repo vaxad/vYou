@@ -9,7 +9,7 @@ export default (posts=[],action)=>{
             return [...posts,action.payload];
             
         case 'UPDATE':
-            return posts;
+            return posts.map((post)=>post._id===action.payload.id?action.payload.post:post);
             
         case 'DELETE':
             return posts;

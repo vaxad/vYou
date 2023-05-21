@@ -3,12 +3,13 @@ import FileBase from "react-file-base64";
 import useStyles from "./style.js";
 import { TextField, Typography, Button, Paper } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts.js";
-import plus from '../../images/plus.svg'
+import { createPost, updatePost } from "../../actions/posts.js";
+import plus from '../../images/plus.svg';
+
 
 let ctr=0;
 
-const Form = () => {
+const Form = (props) => {
   
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -25,7 +26,12 @@ const Form = () => {
     } else {
       e.preventDefault();
     console.log("clicked");
-    dispatch(createPost(postData));
+    if(props.id){
+      dispatch(updatePost(props.id,postData))
+    }else{
+      dispatch(createPost(postData));
+    }
+
     document.getElementById('clear').click();
     }
     
@@ -84,7 +90,7 @@ const Form = () => {
 
   return (
     <>
-      <div className="container w-100 mb-3">
+      <div className={`container w-100 mb-3`}>
         <button
           class="btn btn-dark w-100 mt-3 text-center rounded-pill"
           type="button"
@@ -93,15 +99,16 @@ const Form = () => {
           data-bs-target="#collapseExample"
           aria-expanded="false"
           aria-controls="collapseExample"
+          // style={{"backgroundColor":"#BE4CFF"}}
         ><img
             src={plus}
             height="20"
           />
         </button>
       </div>
-      <div className="container">
+      <div className={`container`}>
       <div class="collapse" id="collapseExample">
-        <div class="card card-body">
+         <div class={`card card-body`} > {/*style={{"backgroundColor":"#BE4CFF","backgroundImage":"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23a244d6' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23873cad' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%236b3384' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23502b5b' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23342332' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E\")","backgroundSize":"cover"}}> */}
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="creator" className="form-label">
