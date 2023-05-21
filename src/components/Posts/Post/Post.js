@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import heart from "../../../images/heart-solid.svg";
+import redHeart from "../../../images/likedHeart.svg";
 import share from "../../../images/share.svg";
 import ellipsis from "../../../images/ellipsis-solid.svg";
 import Vignette from "@hypersprite/react-vignette";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  const [like,setLike]=useState(heart);
+  const handleLike=(id)=>{
+    console.log("like")
+   dispatch(likePost(id));
+   setLike(redHeart);
+  }
+  
 
   const handleDelete=(id)=>{
     dispatch(deletePost(id));
   }
   return (
     <div>
-      <div className="card">
+      <div className="card" style={{borderRadius:"2em"}}>
         <div className="card-header">
           <div className="d-flex justify-content-between">
-            <strong>ⓥ{props.creator}</strong>
+            <strong className="mx-2">ⓥ{props.creator}</strong>
             <div>
-              <span className="badge text-bg-dark mx-3">{props.tags}</span>
+              <span className="badge text-bg-dark mx-4">{props.tags}</span>
               <div className="btn-group dropend">
                 <img
                   src={ellipsis}
                   height="20"
-                  className="dropdown-toggle"
+                  className="dropdown-toggle mr-2"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   style={{ cursor: "pointer" }}
@@ -83,17 +91,18 @@ const Post = (props) => {
           </a> */}
           <div className="d-flex justify-content-between">
             <em className="d-flex" style={{ flexFlow: "row nowrap" }}>
-              <img src={heart} height="20"></img>
-              <p className="mx-2">2,3443</p>
+              
+              <img src={like} height="20" onClick={()=>{handleLike(props.id)}} style={{ cursor: "pointer", color:"#ff0033" }}></img>
+              <p className="mx-2">{props.likes}</p>
             </em>
 
             <em className="d-flex" style={{ flexFlow: "row nowrap" }}>
-              <img src={share} height="20"></img>
+              <img src={share} height="20" style={{ cursor: "pointer" }}></img>
             </em>
           </div>
         </div>
         <div className="card-footer text-body-secondary">
-          {new Date(props.createdAt).toDateString()}
+          <h6 className="mx-2">{new Date(props.createdAt).toDateString()}</h6>
         </div>
       </div>
     </div>

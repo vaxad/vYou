@@ -45,3 +45,15 @@ export const deletePost=(id)=>async(dispatch)=>{
     }
     
 }
+
+export const likePost=(id)=>async(dispatch)=>{
+    try {
+        console.log("like actions");
+        const {data}=await api.likePost(id);
+        dispatch({type:'LIKE', payload:data});
+        console.log("like actions");
+    } catch (error) {
+        //(error.message);
+    }
+    
+}

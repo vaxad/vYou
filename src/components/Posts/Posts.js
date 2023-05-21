@@ -24,7 +24,7 @@ const Posts = (props) => {
           return (
             
             <div className="col-md-4 my-3" key={element._id}>
-              <Post setId={props.setId} id={element._id} creator={element.creator} title={element.title} message={element.message} tags={element.tags} createdAt={element.date} selectedFile={element.selectedFile}/>
+              <Post setId={props.setId} id={element._id} likes={element.likes} creator={element.creator} title={element.title} message={element.message} tags={element.tags} createdAt={element.date} selectedFile={element.selectedFile}/>
             </div>
           );
         })}

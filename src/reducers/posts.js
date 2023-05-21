@@ -11,6 +11,9 @@ export default (posts=[],action)=>{
         case 'UPDATE':
             return posts.map((post)=>post._id===action.payload._id?action.payload:post);
             
+        case 'LIKE':
+            return posts.map((post)=>post._id===action.payload._id?action.payload:post);
+            
         case 'DELETE':
             //("ho raha delete")
             return posts.filter((post)=>post._id!==action.payload) ;
