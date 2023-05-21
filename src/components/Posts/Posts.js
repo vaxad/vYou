@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 let ctr=0;
 const Posts = (props) => {
   const posts = useSelector((state) => state.posts);
-  console.log(posts);
+  //(posts);
   return !posts.length ? (
     <Spinner/>
   ) : (

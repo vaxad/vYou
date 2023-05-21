@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileBase from "react-file-base64";
 import useStyles from "./style.js";
 import { TextField, Typography, Button, Paper } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts.js";
 import plus from '../../images/plus.svg';
-
+import { useSelector } from "react-redux";
 
 let ctr=0;
-
 const Form = (props) => {
+  
+const post = useSelector((state) => props.id?state.posts.find((p)=>p._id===props.id):null);
   
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -20,14 +21,28 @@ const Form = (props) => {
     tags: "",
     selectedFile: "",
   });
+
+   const [submit,setSubmit]=useState('Submit');
+
+  useEffect(()=>{
+    if(post){
+      window.scroll(0,0);
+      setSubmit('Update')
+      //("edit");
+      if(ctr===0) {document.getElementById('toggle').click();}
+      setPostData(post);
+    }
+  },[post])
+  
   const handleSubmit = (e) => {
     if (postData.creator==='') {
       alert("fields empty")
     } else {
       e.preventDefault();
-    console.log("clicked");
+    //("clicked");
     if(props.id){
-      dispatch(updatePost(props.id,postData))
+      dispatch(updatePost(props.id,postData));
+      setSubmit('Submit');
     }else{
       dispatch(createPost(postData));
     }
@@ -37,6 +52,8 @@ const Form = (props) => {
     
   };
   const clear = () => {
+    setSubmit('Submit');
+    props.setId(null)
     setPostData({
       creator: "",
       title: "",
@@ -44,9 +61,9 @@ const Form = (props) => {
       tags: "",
       selectedFile: "",
     });
-    if(ctr===1){
-    document.getElementById('imageShow').click();
-    }
+    // if(ctr===1){
+    // document.getElementById('imageShow').click();
+    // }
     ctr=0;
   };
 
@@ -86,18 +103,17 @@ const Form = (props) => {
     
   }
 
-  
 
   return (
     <>
       <div className={`container w-100 mb-3`}>
         <button
-          class="btn btn-dark w-100 mt-3 text-center rounded-pill"
+          className="btn btn-dark w-100 mt-3 text-center rounded-pill"
           type="button"
           id="toggle"
+          onClick={()=>{ctr=ctr===0?1:0}}
           data-bs-toggle="collapse"
           data-bs-target="#collapseExample"
-          aria-expanded="false"
           aria-controls="collapseExample"
           // style={{"backgroundColor":"#BE4CFF"}}
         ><img
@@ -107,8 +123,8 @@ const Form = (props) => {
         </button>
       </div>
       <div className={`container`}>
-      <div class="collapse" id="collapseExample">
-         <div class={`card card-body`} > {/*style={{"backgroundColor":"#BE4CFF","backgroundImage":"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23a244d6' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23873cad' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%236b3384' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23502b5b' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23342332' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E\")","backgroundSize":"cover"}}> */}
+      <div className="collapse" id="collapseExample">
+         <div className={`card card-body`} > {/*style={{"backgroundColor":"#BE4CFF","backgroundImage":"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23a244d6' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23873cad' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%236b3384' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23502b5b' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23342332' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E\")","backgroundSize":"cover"}}> */}
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="creator" className="form-label">
@@ -164,19 +180,19 @@ const Form = (props) => {
               <input
                 type="file"
                 multiple={false}
-                class="form-control my-2"
+                className="form-control my-2"
                 id="inputGroupFile02"
                 onChange={handleFileUpload}
               ></input>
             </div>
 
             <p>
-            <button class="btn btn-primary" id="imageShow" hidden type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+            <button className="btn btn-primary" id="imageShow" hidden type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
     
   </button>
 </p>
-<div class="collapse" id="collapseExample2">
-  <div class="card card-body">
+<div className="collapse" id="collapseExample2">
+  <div className="card card-body">
     <img src={postData.selectedFile} className=" img-fluid mx-auto" alt="..." style={{maxHeight:"180px", maxWidth:"270px"}}></img>
     </div>
 </div>
@@ -190,7 +206,7 @@ const Form = (props) => {
           aria-expanded="false"
           aria-controls="collapseExample"
             >
-              Submit
+              {submit}
             </button>
             <button
               type="reset"

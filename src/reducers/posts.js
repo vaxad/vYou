@@ -1,18 +1,19 @@
 export default (posts=[],action)=>{
-    console.log("switch")
+    //("switch")
     switch (action.type) {
         case 'FETCH_ALL':
             return action.payload;
             
         case 'CREATE':
-            console.log("reached");
+            //("reached");
             return [...posts,action.payload];
             
         case 'UPDATE':
-            return posts.map((post)=>post._id===action.payload.id?action.payload.post:post);
+            return posts.map((post)=>post._id===action.payload._id?action.payload:post);
             
         case 'DELETE':
-            return posts;
+            //("ho raha delete")
+            return posts.filter((post)=>post._id!==action.payload) ;
             
         default:
             return posts;
