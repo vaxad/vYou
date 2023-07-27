@@ -17,7 +17,7 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#"></a>
+          <a className="nav-link active" aria-current="page" href="https://www.linkedin.com/in/varad-prabhu-622621270/" target='_blank' rel="noreferrer">About</a>
         </li>
       </ul>
       <form className="d-flex" role="search">
