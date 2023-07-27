@@ -1,30 +1,34 @@
-import logo from './logo.svg';
-import React, { Component, useEffect, useState }  from 'react';
+// import logo from './logo.svg';
+import React, { useEffect }  from 'react';
 import './App.css';
-import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
-import memories from './images/memories.png';
-import Posts from './components/Posts/Posts.js';
-import Form from './components/Form/Form.js';
-import useStyles from './style.js';
-import { useDispatch } from 'react-redux';
-import {getPosts} from './actions/posts.js'
 import Navbar from './components/Navbar';
-
+import Signup from './components/Signup';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
+import PostState from './context/state.js'
+import Post from './components/Post';
 
 function App() {
-  const classes=useStyles();
-  const dispatch=useDispatch();
-  const [id,setId]=useState(null);
 
-  useEffect(()=>{
-    dispatch(getPosts());
-  }, [dispatch]);
   return (
     <>
-    <Navbar></Navbar>
-    <Form id={id} setId={setId}></Form>
-    <Posts setId={setId}></Posts>
-    </>
+    <PostState>
+    <Router>
+    <Navbar/>
+    {/* <Alert alert={alert}/> */}
+    <div className="container mt-3">
+    <Routes>
+         <Route exact path="/" element={<Home />} />
+         <Route exact path="/login" element={<Login />} />
+         {/* <Route exact path="/about" element={<About />} /> */}
+         <Route exact path="/signup" element={<Signup />} />
+         <Route exact path="/post/:id" element={<Post />} />
+  </Routes>
+  </div>
+  </Router>
+  </PostState>
+  </>
   );
 }
 

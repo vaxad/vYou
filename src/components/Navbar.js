@@ -1,11 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+  const navigate=useNavigate();
+  const handleLogout=()=>{
+  navigate('/login');
+  }
   return (
     <div>
     <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div className="container-fluid">
-    <a className="navbar-brand" href="#">vYou</a>
+    <a className="navbar-brand fh1" href="/">vYou</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -16,8 +21,9 @@ const Navbar = () => {
         </li>
       </ul>
       <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-light" type="submit">Search</button>
+        <input className="form-control me-2 fh2" disabled={true} type="search" placeholder="Search" aria-label="Search"/>
+        <button className="btn btn-outline-light fh2" disabled={true} type="submit">Search</button>
+        <button className="btn btn-outline-light mx-2 nav-item fh2" style={{whiteSpace:'nowrap'}} onClick={handleLogout}>Log out</button>
       </form>
     </div>
   </div>

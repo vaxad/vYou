@@ -19,6 +19,18 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+.fh1{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+.fh2{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+.fh3{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
