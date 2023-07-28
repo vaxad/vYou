@@ -64,18 +64,30 @@ const PostState = (props) => {
 
 
   const addPost =async (newpost) => {
-    console.log(newpost)
+    let data=newpost;
+    try {
+     data=JSON.stringify(newpost);
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(data)
     const response = await fetch(`${url}/posts/`, {
+      mode:'cors',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify(newpost)
+      // body:data
     });
 
+    try{
     const post = await response.json();
     setPosts(posts.concat(post));
+    }catch(e){
+      console.log(e);
+    }
     
   }
 

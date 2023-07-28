@@ -71,8 +71,8 @@ const post = posts?posts.find((p)=>p._id===props.id):null;
        // console.log(postData)
       // dispatch(createPost(postData));
     }
-
-    document.getElementById('clear').click();
+    clear();
+    // document.getElementById('clear').click();
     }
     
   };
